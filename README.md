@@ -1,4 +1,5 @@
-# iSocial-MERN
+# iSocial-MERN 
+(In Progress)*
 Social Application using MERN Stack
 
 It utlizes the MERN stack to implement a social app where users 
