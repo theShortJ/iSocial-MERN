@@ -2,12 +2,13 @@ import React, {Fragment, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alerts';
+import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
 
 //import axios from 'axios';
 
 // const Register = (props) => {
-const Register = ({ setAlert }) => {
+const Register = ({ setAlert, register }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -23,14 +24,17 @@ const Register = ({ setAlert }) => {
 
     const onSubmit = async event => {
         event.preventDefault();
-        if (password !== password2) {
-            setAlert('React-Redux: Password do not match!', 'danger');
-            console.log('Password do not match!');
+        if (!name) {
+            setAlert('React-Redux: Please enter name', 'danger');
+            register({name, email, password});
+        } else if (password !== password2) {
             //props.setAlert('React-Redux: Password do not match!', 'danger');
+            setAlert('React-Redux: Password do not match!', 'danger');
+            register({name, email, password});
         } else {
-            console.log('Successfully created!');
-            setAlert('React-Redux: Successfully created!', 'success');
             //props.setAlert('React-Redux: Successfully created!', 'success');
+            setAlert('React-Redux: Successfully created!', 'success');
+            register({name, email, password});
 
             // const newUser = {
             //     name, email, password
@@ -65,7 +69,8 @@ const Register = ({ setAlert }) => {
                         name="name"
                         value={name} 
                         onChange={ event => onchange(event)} 
-                        required />
+                        // required
+                        />
                 </div>
                 <div className="form-group">
                     <input type="email"
@@ -107,7 +112,8 @@ const Register = ({ setAlert }) => {
 };
 
 Register.propTypes = {
-    setAlert: PropTypes.func.isRequired
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired
 };
 
-export default connect(null, {setAlert})(Register);
+export default connect(null, {setAlert, register})(Register);
