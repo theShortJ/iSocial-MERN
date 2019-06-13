@@ -1,9 +1,11 @@
-import React, {useState, Fragment} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState, Fragment } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-const CreateProfile = props => {
+import { createProfile } from '../../actions/profile';
+
+const CreateProfile = ( {createProfile, history} ) => {
     const [profileForm, setProfileForm] = useState({
         company: '',
         website: '',
@@ -36,7 +38,12 @@ const CreateProfile = props => {
 
     const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
-    const onChange = event => setProfileForm( {...profileForm, [event.target.name]: event.traget.value}) ;;
+    const onChange = event => setProfileForm( {...profileForm, [event.target.name]: event.traget.value});
+
+    const onSubmit = e => {
+        e.preventDefault();
+        createProfile(profileForm, history);
+      };
 
     return (
         <Fragment>
@@ -48,7 +55,7 @@ const CreateProfile = props => {
                 profile stand out
             </p>
             <small>* = required field</small>
-            <form className="form">
+            <form className="form" onSubmit = { e => onSubmit(e) }>
                 <div className="form-group">
                     <select name="status" value = {status} onChange = { (event) => onChange(event)}>
                         <option value="0">* Professional Status</option>
@@ -217,7 +224,7 @@ const CreateProfile = props => {
 }
 
 CreateProfile.propTypes = {
-
+    createProfile: PropTypes.func.isRequired
 }
 
-export default CreateProfile;
+export default connect(null, { createProfile })(withRouter(CreateProfile));
