@@ -5,6 +5,7 @@ import Landing from './components/layout/Landing';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 import ProfileForm from './components/forms/CreateProfile';
+import EditProfile from './components/forms/EditProfile';
 import PrivateRoute from './components/routing/PrivateRoute';
 // React
 import React, {Fragment,useEffect} from 'react';
@@ -39,6 +40,7 @@ const App = () => {
                 <Route exact path = '/register' component = {Register} />
                 <PrivateRoute exact path = '/dashboard' component = {Dashboard} />
                 <PrivateRoute exact path = '/create-profile' component = {ProfileForm} />
+                <PrivateRoute exact path = '/edit-profile' component = {EditProfile} />
               </Switch>
             </section>
           </Fragment>
