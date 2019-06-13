@@ -38,10 +38,13 @@ const CreateProfile = ( {createProfile, history} ) => {
 
     const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
-    const onChange = event => setProfileForm( {...profileForm, [event.target.name]: event.traget.value});
+    const onChange = event => setProfileForm( {
+        ...profileForm,
+        [event.target.name]: event.target.value
+    });
 
-    const onSubmit = e => {
-        e.preventDefault();
+    const onSubmit = event => {
+        event.preventDefault();
         createProfile(profileForm, history);
       };
 
@@ -57,7 +60,7 @@ const CreateProfile = ( {createProfile, history} ) => {
             <small>* = required field</small>
             <form className="form" onSubmit = { e => onSubmit(e) }>
                 <div className="form-group">
-                    <select name="status" value = {status} onChange = { (event) => onChange(event)}>
+                    <select name="status" value = {status} onChange = { (e) => onChange(e)}>
                         <option value="0">* Professional Status</option>
                         <option value="Developer">Developer</option>
                         <option value="Junior Developer">Junior Developer</option>
@@ -141,7 +144,7 @@ const CreateProfile = ( {createProfile, history} ) => {
                         value={bio}
                         onChange={e => onChange(e)}
                     />
-                    <small className='form-text'>Tell us a little about yourself</small>
+                    <small className='form-text'>Tell us something about yourself</small>
                     </div>
 
                     <div className='my-2'>
