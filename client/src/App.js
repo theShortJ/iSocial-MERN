@@ -9,6 +9,8 @@ import EditProfile from './components/forms/EditProfile';
 import AddExperience from './components/forms/AddExperience';
 import AddEducation from './components/forms/AddEducation';
 import PrivateRoute from './components/routing/PrivateRoute';
+import Profiles from './components/profiles/Profiles';
+import Profile from './components/profile/Profile';
 // React
 import React, {Fragment,useEffect} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
@@ -38,8 +40,10 @@ const App = () => {
             <section className="container">
               <Alert />
               <Switch>
+                <Route exact path = '/profiles' component = {Profiles} />
                 <Route exact path = '/login' component = {Login} />
                 <Route exact path = '/register' component = {Register} />
+                <Route exact path='/profile/:id' component={Profile} />
                 <PrivateRoute exact path = '/dashboard' component = {Dashboard} />
                 <PrivateRoute exact path = '/create-profile' component = {ProfileForm} />
                 <PrivateRoute exact path = '/edit-profile' component = {EditProfile} />

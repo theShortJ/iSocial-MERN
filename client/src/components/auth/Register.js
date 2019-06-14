@@ -25,15 +25,15 @@ const Register = ({ setAlert, register }) => {
     const onSubmit = async event => {
         event.preventDefault();
         if (!name) {
-            setAlert('React-Redux: Please enter name', 'danger');
+            setAlert('Please enter name', 'danger');
             register({name, email, password});
         } else if (password !== password2) {
             //props.setAlert('React-Redux: Password do not match!', 'danger');
-            setAlert('React-Redux: Password do not match!', 'danger');
+            setAlert('Password do not match!', 'danger');
             register({name, email, password});
         } else {
             //props.setAlert('React-Redux: Successfully created!', 'success');
-            setAlert('React-Redux: Successfully created!', 'success');
+            setAlert('Successfully created!', 'success');
             register({name, email, password});
 
             // const newUser = {
