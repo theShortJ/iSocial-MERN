@@ -4,8 +4,14 @@ const config = require('config');
 const Redis = require('redis');
 const Util = require('util');
 
+// Adding REDIS instance URL for use in Cloud (Heroku)
+if (process.env.REDIS_URL) {
+    console.log("Using Heroku Redis Add-On Server");
+}
+const REDIS_URL = process.env.REDIS_URL || config.get('redisURI');
+
 //Setting up the Redis connection.
-const redisClient = Redis.createClient(config.get('redisURI'));
+const redisClient = Redis.createClient(REDIS_URL);
 redisClient.flushall();
 console.log('********** REDIS Client created! **********');
 

@@ -2,10 +2,11 @@
 
 const express = require('express');
 const connectDB = require('./config/db');
+const config = require('config');
 const path = require('path');
 
 // Adding Redis Cache Impl to cache the Query results returned by MongoDB.
-// require('./hooks/RedisCache');
+require('./hooks/RedisCache');
 
 const port = process.env.PORT || 5000;
 const app = express();
