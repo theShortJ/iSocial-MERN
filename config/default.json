@@ -2,5 +2,6 @@
     "mongoURI": "mongodb+srv://mongo:mongo@cluster0-6xivh.mongodb.net/test?retryWrites=true&w=majority",
     "jwtSecret": "secret",
     "githubClientId": "eb3e52f10e3c87773ed2",
-    "githubSecret": "3c01bd6cf645f5d8d203f3479521cb303aa69e54"
+    "githubSecret": "3c01bd6cf645f5d8d203f3479521cb303aa69e54",
+    "redisURI": "redis://127.0.0.1:6379"
 }
