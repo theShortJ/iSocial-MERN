@@ -15,6 +15,9 @@ It utlizes the MERN stack to implement a social app where users
 8. Edit Profile
 9. Delete Profile with Posts.
 
+Adacnced Features:
+1. Cache Implementation using REDIS
+
 The app is deployed in Heroku through Git. Please find the url above to access it.
 
 Thanks.
