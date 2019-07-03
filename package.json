@@ -8,6 +8,7 @@
     "server": "nodemon server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "jest",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Bhanuj Bawdhane",
@@ -18,8 +19,10 @@
     "express": "^4.17.0",
     "express-validator": "^5.3.1",
     "gravatar": "^1.8.0",
+    "jest": "^24.7.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.9",
+    "puppeteer": "^1.18.1",
     "redis": "^2.8.0",
     "request": "^2.88.0"
   },

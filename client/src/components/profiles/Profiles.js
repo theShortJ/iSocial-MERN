@@ -1,7 +1,8 @@
 import React, {Fragment, useEffect} from 'react';
+import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-// import Spinner from '../layout/Spinner';
+import Spinner from '../layout/Spinner';
 import {getAllProfiles} from '../../actions/profile';
 import ProfileItem from '../profiles/profileItem';
 
@@ -11,7 +12,7 @@ const Profiles = ({ profile: { profiles, loading }, getAllProfiles }) => {
         }, [getAllProfiles]
     );
 
-    return (
+    return (loading) ? (<Spinner/>) : (
         <Fragment>
           <h1 className='large text-primary'>Developers</h1>
           <p className='lead'>
@@ -39,4 +40,4 @@ const mapReduxStateToProops = state => ({
     profile: state.profile
 })
 
-export default connect(mapReduxStateToProops, {getAllProfiles})(Profiles);
+export default connect(mapReduxStateToProops, {getAllProfiles})(withRouter(Profiles));

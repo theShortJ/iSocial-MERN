@@ -1,9 +1,9 @@
 import React from "react";
 import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-const Landing = ({isAuthenticated}) => {
+export const Landing = ({isAuthenticated}) => {
 
     if (isAuthenticated) {
         return <Redirect to = '/dashboard'/>;
