@@ -16,8 +16,9 @@ It utlizes the MERN stack to implement a social app where users
 9. Delete Profile with Posts.
 
 Adacnced Features:
-1. Cache Implementation using REDIS.
-2. Automated Headless Browser Testing.
+1. Added Prerender.io to optimize the rendering of a JS page. With this, the site is cached after rendering and can be pulled up more quickly when accessed by a bot.
+2. Cache Implementation using REDIS.
+3. Automated Headless Browser Testing.
 
 The app is deployed in Heroku through Git. Please find the url above to access it.
 
