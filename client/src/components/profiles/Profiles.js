@@ -2,7 +2,7 @@ import React, {Fragment, useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import Spinner from '../layout/Spinner';
+// import Spinner from '../layout/Spinner';
 import {getAllProfiles} from '../../actions/profile';
 import ProfileItem from '../profiles/profileItem';
 
@@ -12,7 +12,7 @@ const Profiles = ({ profile: { profiles, loading }, getAllProfiles }) => {
         }, [getAllProfiles]
     );
 
-    return (loading) ? (<Spinner/>) : (
+    return (
         <Fragment>
           <h1 className='large text-primary'>Developers</h1>
           <p className='lead'>
@@ -36,8 +36,8 @@ Profiles.propTypes = {
     profile: PropTypes.object.isRequired
 }
 
-const mapReduxStateToProops = state => ({
+const mapReduxStateToProps = state => ({
     profile: state.profile
 })
 
-export default connect(mapReduxStateToProops, {getAllProfiles})(withRouter(Profiles));
+export default connect(mapReduxStateToProps, {getAllProfiles})(withRouter(Profiles));

@@ -116,6 +116,12 @@ router.post(
 router.get('/', async (req, res) => {
     try {
       const profiles = await Profile.find().populate('user', ['name', 'avatar']);
+      // const expIds = profiles.map( (user) => {
+      //   const pro = user;
+      //   pro._id = user._id.toString();
+      //   return pro;
+      // });
+      // console.log(expIds);
       res.json(profiles);
     } catch (err) {
       console.error(err.message);
@@ -135,7 +141,7 @@ router.get('/user/:user_id', async (req, res) => {
       res.json(profile);
     } catch (err) {
       console.error(err.message);
-      if (err.kind == 'ObjectId') {
+      if (err.kind === 'ObjectId') {
         return res.status(400).json({ msg: 'Profile not found' });
       }
       res.status(500).send('Server Error');
@@ -218,23 +224,47 @@ router.put(
 );
 
 // Deletes the expreience from the Profile obtained using JWT
+// router.delete('/experience/:exp_id', Authorization, async (req, res) => {
+//     try {
+//       const profile = await Profile.findOne({ user: req.user.id });
+
+//       const removeIndex = profile.experience
+//         .map(item => item.id)
+//         .indexOf(req.params.exp_id);
+
+//       profile.experience.splice(removeIndex, 1);
+
+//       await profile.save();
+
+//       res.json(profile);
+//     } catch (err) {
+//         console.error(err.message);
+//         res.status(500).send('Server Error');
+//     }
+// });
+
 router.delete('/experience/:exp_id', Authorization, async (req, res) => {
-    try {
-      const profile = await Profile.findOne({ user: req.user.id });
-
-      const removeIndex = profile.experience
-        .map(item => item.id)
-        .indexOf(req.params.exp_id);
-
-      profile.experience.splice(removeIndex, 1);
-
-      await profile.save();
-
-      res.json(profile);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
+  try {
+    const foundProfile = await Profile.findOne({ user: req.user.id });
+    const expIds = foundProfile.experience.map(exp => exp._id.toString());
+    // if i dont add .toString() it returns this weird mongoose coreArray and the ids are somehow objects and it still deletes anyway even if you put /experience/5
+    const removeIndex = expIds.indexOf(req.params.exp_id);
+    if (removeIndex === -1) {
+      return res.status(500).json({ msg: "Server error" });
+    } else {
+      // these console logs helped me figure it out
+      console.log("expIds", expIds);
+      console.log("typeof expIds", typeof expIds);
+      console.log("req.params", req.params);
+      console.log("removed", expIds.indexOf(req.params.exp_id));
+      foundProfile.experience.splice(removeIndex, 1);
+      await foundProfile.save();
+      return res.status(200).json(foundProfile);
     }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Server error" });
+  }
 });
 
 // Adds the Education to Profile using JWT.
@@ -299,24 +329,49 @@ router.put(
   );
 
 // Deletes the Education from the Profile using JWT
+// router.delete('/education/:edu_id', Authorization, async (req, res) => {
+//     try {
+//         const profile = await Profile.findOne({ user: req.user.id });
+
+//         const removeIndex = profile.education
+//         .map(item => item.id)
+//         .indexOf(req.params.edu_id);
+
+//         profile.education.splice(removeIndex, 1);
+
+//         await profile.save();
+
+//         res.json(profile);
+//     } catch (err) {
+//         console.error(err.message);
+//         res.status(500).send('Server Error');
+//     }
+// });
+
 router.delete('/education/:edu_id', Authorization, async (req, res) => {
-    try {
-        const profile = await Profile.findOne({ user: req.user.id });
-
-        const removeIndex = profile.education
-        .map(item => item.id)
-        .indexOf(req.params.edu_id);
-
-        profile.education.splice(removeIndex, 1);
-
-        await profile.save();
-
-        res.json(profile);
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
+  try {
+    const foundProfile = await Profile.findOne({ user: req.user.id });
+    const eduIds = foundProfile.education.map(edu => edu._id.toString());
+    // if i dont add .toString() it returns this weird mongoose coreArray and the ids are somehow objects and it still deletes anyway even if you put /education/5
+    const removeIndex = eduIds.indexOf(req.params.edu_id);
+    if (removeIndex === -1) {
+      return res.status(500).json({ msg: "Server error" });
+    } else {
+      // these console logs helped me figure it out
+      console.log("eduIds", eduIds);
+      console.log("typeof eduIds", typeof eduIds);
+      console.log("req.params", req.params);
+      console.log("removed", eduIds.indexOf(req.params.edu_id));
+      foundProfile.education.splice(removeIndex, 1);
+      await foundProfile.save();
+      return res.status(200).json(foundProfile);
     }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Server error" });
+  }
 });
+
 
 // Get User repos from GitHub
 router.get('/github/:username', (req, res) => {

@@ -28,11 +28,14 @@ mongoose.Query.prototype.exec = async function () {
         collection: this.collection.name
     }));
 
-    //console.log(key);
+    console.log(key);
+    let cachedData = '';
 
-    const cachedData = await redisClient.get(key);
+    if (key) {
+        cachedData = await redisClient.get(key);
+    }
 
-    console.log(cachedData);
+    //console.log(cachedData);
 
     if (cachedData !== null && cachedData) {
         console.log('REDIS: Cache Loaded');
@@ -42,11 +45,8 @@ mongoose.Query.prototype.exec = async function () {
 
     // Calling the org exec function defined over the prototype chain.
     const result = await exec.apply(this, arguments);
-    redisClient.set(key, JSON.stringify(result), (err) =>{
-        if (err) {
-            console.log(err)
-        }}
-    );
+    //console.log('result:::::' + result);
+    redisClient.set(key, JSON.stringify(result), Redis.print );
 
     return result;
 };

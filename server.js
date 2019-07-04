@@ -21,6 +21,17 @@ app.use(express.json(
     }
 ));
 
+// Setting up Prerender to use in Heroku
+if ( process.env.PRERENDER_TOKEN && process.env.PRERENDER_SERVICE_URL) {
+    console.log(" ############## Using prerender on Heroku ############## ");
+    app.use(require('prerender-node').set('prerenderServiceUrl', process.env.PRERENDER_SERVICE_URL).set('prerenderToken', process.env.PRERENDER_TOKEN));
+    console.log(" ############## Using prerender on Heroku ############## ");
+} else {
+    // Setting up Prerender to run locally
+    app.use(require('prerender-node').set('prerenderServiceUrl',config.get('prerenderServiceUrl')).set('prerenderToken', config.get('prerenderToken')));
+    console.log(` ######### Using prerender server on ${config.get('prerenderServiceUrl')} ######### `);
+}
+
 // Define Routes : Starts
 // app.get('/', (req, res) => res.send('Home Page'));
 
