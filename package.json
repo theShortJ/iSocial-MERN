@@ -24,6 +24,8 @@
     "mongoose": "^5.5.9",
     "prerender-node": "^3.2.4",
     "puppeteer": "^1.18.1",
+    "react-helmet": "^5.2.1",
+    "react-helmet-async": "^1.0.2",
     "redis": "^2.8.0",
     "request": "^2.88.0"
   },
